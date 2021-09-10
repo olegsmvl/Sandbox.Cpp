@@ -1,4 +1,6 @@
 #include <iostream>
+#include <string>
+using namespace std;
 
 int main(){
 	int a = 5;
@@ -58,6 +60,32 @@ int main(){
         p_str++;
     }
     
+    struct User
+    {
+        int Id;
+        string Name;
+        User(int id, string name ){
+            Name = name;
+            Id = id;
+        }
+    };
+
+    User *p_user = new User(1, "Igor");
+    User user = User(1, "Igor");
+
+    cout<<sizeof(User*)<<endl;
+    cout<< p_user <<endl;
+    cout<< p_user->Id <<endl;
+    cout<< p_user->Name <<endl;
+    //int id_user = p_user->Id;
+    //string str_name = p_user->Name;
+    //cout << str_name <<endl;
+    cout << user.Id <<endl;
+    cout << user.Name <<endl;
+
+    if (p_user){
+        cout<<"data is not null"<<endl;
+    }
 
     return 0;
 }
