@@ -2,6 +2,10 @@
 #include <string>
 using namespace std;
 
+int getSize(const char *str);
+
+
+
 int main(){
 	int a = 5;
     int *p;
@@ -49,8 +53,10 @@ int main(){
     std::cout << str2 << std:: endl; 
     std::cout << *str2 << std:: endl; 
 
-    std::cout <<"sizeof "  << sizeof(*str)  << std:: endl; 
-    std::cout <<"sizeof "  << sizeof(str2)  << std:: endl; 
+    std::cout <<"sizeof *str: "  << sizeof(*str)  << std:: endl; 
+    std::cout <<"sizeof str: "  << sizeof(str)  << std:: endl; 
+    std::cout <<"sizeof str2: "  << sizeof(str2)  << std:: endl;    
+    std::cout <<"length str: "  << getSize(str)  << std:: endl;    
 
     const char* p_str = str2;
 
@@ -88,4 +94,15 @@ int main(){
     }
 
     return 0;
+}
+
+int getSize(const char *str){
+    auto p = str;
+    int size = 0;
+
+    while(*p != '\0'){
+        size++;
+        p++;
+    }
+    return size;
 }
