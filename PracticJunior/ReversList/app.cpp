@@ -4,8 +4,6 @@ using namespace std;
 
 //список надо релализовать как здесь https://habr.com/ru/sandbox/153128/
 
-
-
 struct Node
 {
 	string Val;
@@ -33,7 +31,7 @@ struct list
 		return first == nullptr;
 	}
 
-	void  push_back(string str){
+	void push_back(string str){
 		Node* p = new Node(str);
 		if (is_empty()){
 			first = p;
@@ -56,6 +54,11 @@ struct list
 		}
 		cout << endl;
 	}
+
+	void insert(Node *p, Node &node){
+		node.Next = p -> Next; 
+		p->Next = &node;
+	}
 };
 
 
@@ -70,10 +73,15 @@ int main(){
 	l.push_back("55");
 	l.print();
 
-	l.first = reverse(l.first);
+	Node node{"100"};
+
+	l.insert(l.first , node);
 
 	l.print();
 
+	l.first = reverse(l.first);
+
+	l.print();
 
 	return 0;
 }
