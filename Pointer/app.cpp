@@ -2,12 +2,38 @@
 #include <string>
 using namespace std;
 
+struct User
+{
+    int Id;
+    string Name;
+    User *next;
+};
+
 int getSize(const char *str);
-
-
+void test();
+User testReturn();
 
 int main(){
-	int a = 5;
+    User user = testReturn();
+
+    cout << "start" << endl;
+    cout << user.next->Id << endl;
+    cout << user.next->Name << endl;
+    cout << "end" << endl;
+
+    return 0;
+}
+
+User testReturn(){
+    auto user = User{1, "Igor"};
+    auto userNext = new User{2, "Mary"};
+    user.next = userNext;
+
+    return user;
+}
+
+void test(){
+    	int a = 5;
     int *p;
     p = &a;
 
@@ -92,8 +118,6 @@ int main(){
     if (p_user){
         cout<<"data is not null"<<endl;
     }
-
-    return 0;
 }
 
 int getSize(const char *str){
