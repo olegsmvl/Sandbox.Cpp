@@ -2,6 +2,7 @@
 using namespace std;
 
 //https://prog-cpp.ru/data-tree/
+//https://acm.bsu.by/wiki/%D0%9F%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%BD%D0%B0%D1%8F_%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F_%D0%B1%D0%B8%D0%BD%D0%B0%D1%80%D0%BD%D1%8B%D1%85_%D0%BF%D0%BE%D0%B8%D1%81%D0%BA%D0%BE%D0%B2%D1%8B%D1%85_%D0%B4%D0%B5%D1%80%D0%B5%D0%B2%D1%8C%D0%B5%D0%B2 - insert node
 
 struct tnode
 {
@@ -15,11 +16,27 @@ struct tnode
     }
 };
 
-void tree_print(tnode *tree){
+void tree_print_pre(tnode *tree){
     if (tree!=nullptr){
         cout <<" "<< tree->field;
-        tree_print(tree->left);
-        tree_print(tree->right);
+        tree_print_pre(tree->left);
+        tree_print_pre(tree->right);
+    }
+}
+
+void tree_print_in(tnode *tree){
+    if (tree!=nullptr){
+        tree_print_in(tree->left);
+        cout << tree->field << " ";
+        tree_print_in(tree->right);
+    }
+}
+
+void tree_print_post(tnode *tree){
+    if (tree!=nullptr){
+        tree_print_post(tree->left);
+        tree_print_post(tree->right);
+        cout << tree->field << " ";
     }
 }
 
@@ -43,9 +60,28 @@ tnode create_tree(){
     return root;
 }
 
+void insert(tnode *node){
+    if (node->left == nullptr)
+        node->left = new tnode((node->field)+=1);
+    if (node->right == nullptr)
+        node->right = new tnode((node->field)+=2);
+}
+
+void tree_print_layer1(tnode *root){
+    cout << root->field << " "<< endl;
+}
+
+void tree_print_layer2(tnode *root){
+    cout << root->left->field << " "<< endl;
+    cout << root->right->field << " "<< endl;
+}
+
 int main(int argc, char const *argv[])
 {
     auto tree = create_tree();
-    tree_print(&tree);
+    tree_print_pre(&tree);
+    // tree_print_in(&tree);
+    //tree_print_post(&tree);
+    //tree_print_layer(&tree);
     return 0;
 }
