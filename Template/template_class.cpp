@@ -3,15 +3,15 @@ class Account
 {
 private:
     T id;
+
 public:
-    Account(/* args */);
-    ~Account();
+    Account(T _id){
+        id = _id;
+    }
+
+    T getData(){
+        return id;
+    }
 };
 
-Account::Account(/* args */)
-{
-}
 
-Account::~Account()
-{
-}
