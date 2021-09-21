@@ -1,5 +1,6 @@
 #include <iostream>
 #include "A.cpp"
+#include "B.cpp"
 using namespace std;
 
 int main(int argc, char const *argv[])
@@ -13,6 +14,7 @@ int main(int argc, char const *argv[])
     a3.setLength(3500);
     cout << a3.getLength() << endl;
 
+    B b;
 
     return 0;
 }

@@ -1,4 +1,6 @@
-class A{
+#pragma once
+
+class A {
 private:
     char num = 'S';
     char num2 = 'S';
