@@ -8,21 +8,24 @@ struct  User
     string Name;
 };
 
-void print(User user){
+void print(const User &user){
     cout << "Id: " << user.Id << endl;
     cout << "Name: " << user.Name << endl;
 }
 
-User change(User &user){
+void change(User &user){
     user.Id = 5;
-    return user;
+    user.Name += "_New";
 }
 
 int main(){
-    User user{1, "Igor"};
-
-    change(user);
-
+    const User user{1, "Igor"};
     print(user);
+
+    User user_mutable{2, "Mary"};
+    print(user_mutable);
+    change(user_mutable);
+    print(user_mutable);
+
     return 0;
 }
