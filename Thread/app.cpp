@@ -1,5 +1,6 @@
 #include<iostream>
 #include <thread>
+using namespace std;
 
 void threadFunction(int value){
     for (size_t i = 0; i < 10; i++)
@@ -12,13 +13,13 @@ void threadFunction(int value){
 int main(int argc, char const *argv[])
 {
     int a = 1;
-    std::thread thr(threadFunction, a);
+    thread thr(threadFunction, a);
     //thr.join();
     thr.detach();
 
     for (size_t i = 0; i < 10; i++)
     {
-        std::cout << i << std::endl;    
+        cout << i << endl;    
         /* code */
     }
     
