@@ -3,27 +3,24 @@
 using namespace std;
 
 void threadFunction(int value){
-    for (size_t i = 0; i < 10; i++)
+    for (size_t i = 0; i < value; i++)
     {
         std::cout << i << " second thread" << std::endl;    
-        /* code */
     }
 }
 
 int main(int argc, char const *argv[])
 {
-    int a = 1;
+    int a = 20;
     thread thr(threadFunction, a);
-    //thr.join();
-    thr.detach();
+    //thr.detach();
 
     for (size_t i = 0; i < 10; i++)
     {
         cout << i << endl;    
-        /* code */
     }
     
+    thr.join();
 
-    /* code */
     return 0;
 }
