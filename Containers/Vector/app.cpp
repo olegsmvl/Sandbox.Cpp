@@ -27,8 +27,11 @@ int main(){
 
 void find_func(vector<int> vec){
 	cout << "begin" << endl;
-	auto pos = find(vec.cbegin, vec.cend, 5);
+	int val = 5;
 
+	auto pos = find(vec.begin(), vec.end(), val);
+
+	cout << *pos << endl;
 	cout << "end" << endl;
 }
 
