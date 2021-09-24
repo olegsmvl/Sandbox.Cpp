@@ -1,8 +1,12 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
 using std::cout;
 using std::endl;
 using std::vector;
+using namespace std;
+
+void find_func(vector<int> vec);
 
 int main(){
 	vector<int> numbers = {1,3,5,8};
@@ -16,5 +20,15 @@ int main(){
 	cout << numbers.front() << endl;
 	cout << numbers.back() << endl;
 
+	find_func(numbers);
+
 	return 0;
 }
+
+void find_func(vector<int> vec){
+	cout << "begin" << endl;
+	auto pos = find(vec.cbegin, vec.cend, 5);
+
+	cout << "end" << endl;
+}
+
