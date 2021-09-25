@@ -13,7 +13,7 @@ class Item{
         cout << "ctor" << endl;
         }
     ~Item(){cout << "dtor" << endl;}
-    string getValue() {return name;}
+    string getName() {return name;}
 };
 
 int main(int argc, char const *argv[])
@@ -22,14 +22,14 @@ int main(int argc, char const *argv[])
     unique_ptr<Item> item1(new Item("first"));
     auto item2 = move(item1);
 
-    cout << item2->getValue() << endl;
+    cout << item2->getName() << endl;
 
     if (item1 == nullptr)
      cout << "null" << endl;
 
     auto item3 = make_unique<Item>("third");
 
-    cout << item3->getValue() << endl;
+    cout << item3->getName() << endl;
 
     return 0;
 }
