@@ -1,4 +1,6 @@
 #include <iostream>
+using std::cout;
+using std::endl;
  
 double divide(int, int);
  
@@ -9,13 +11,14 @@ int main()
     try
     {
         double z = divide(x, y);
-        std::cout << z << std::endl;
+        cout << z << endl;
     }
     catch (const char* msg)
     {
-        std::cout << msg << std::endl;
+        cout << msg << endl;
     }
-    std::cout << "The End..." << std::endl;
+
+    cout << "The End..." << endl;
     return 0;
 }
 

@@ -7,7 +7,7 @@ class BaseClass
     public:
     BaseClass(){}
 
-     const char* who_i_am(){
+     virtual const char* who_i_am(){
         return "base class";
     }
 };
