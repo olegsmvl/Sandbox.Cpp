@@ -16,5 +16,11 @@ int main(int argc, char const *argv[])
 
     B b;
 
+    cout << "===========" << endl;
+
+    cout << A::staticGetNumber() << endl;
+    A::number = 5;
+    cout << A::staticGetNumber() << endl;
+
     return 0;
 }

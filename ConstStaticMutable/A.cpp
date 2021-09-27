@@ -8,6 +8,7 @@ private:
     mutable int length = 200;
 public:
     static int number;
+    static int staticGetNumber() {return number;}
     int getNumber(){return number;}
     void inc_number(){number++;}
     int getAge() const {return age;}
