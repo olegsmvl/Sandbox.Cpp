@@ -1,15 +1,17 @@
 #include <iostream>
-#include <vector>
+#include <list>
 using namespace std;
 
 
 int main(int argc, char const *argv[])
 {
-    auto vec = vector<int>{1,2,3,4};
-    vec.push_back(200);
+    auto myList = list<int>{1,3,4,5};
 
-    for(auto x : vec)
+    myList.push_back(100);
+
+    for (auto x : myList){
         cout << x << endl;
+    }
 
     return 0;
 }
