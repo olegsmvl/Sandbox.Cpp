@@ -5,11 +5,12 @@ using namespace std;
 
 int main(int argc, char const *argv[])
 {
-    auto vec = vector<int>{1,2,3,4};
-    vec.push_back(200);
+    int value1;
 
-    for(auto x : vec)
-        cout << x << endl;
+    int* value2 = new int();
+
+    cout << value1 << endl;
+    cout << *value2 << endl;
 
     return 0;
 }
