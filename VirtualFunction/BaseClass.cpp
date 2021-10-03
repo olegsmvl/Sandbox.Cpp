@@ -5,9 +5,11 @@
 class BaseClass
 {
     public:
-    BaseClass(){}
+    BaseClass(){
+    //    std::cout << who_i_am() << std::endl;
+    }
 
-     virtual const char* who_i_am(){
+     virtual std::string who_i_am(){
         return "base class";
     }
 };

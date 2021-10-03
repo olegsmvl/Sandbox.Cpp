@@ -17,6 +17,9 @@ class A
 
 class B : public A{
     public:
+    B(){
+        print();
+    }
     void print() {
         cout << "print method" << endl;
     }
