@@ -2,15 +2,16 @@
 #include <vector>
 using namespace std;
 
+inline void print();
 
 int main(int argc, char const *argv[])
 {
-    int value1;
-
-    int* value2 = new int();
-
-    cout << value1 << endl;
-    cout << *value2 << endl;
+    print();
 
     return 0;
+}
+
+inline void print()
+{
+    cout << "im printing" << endl;
 }
