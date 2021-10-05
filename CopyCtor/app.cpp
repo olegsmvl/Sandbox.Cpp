@@ -6,6 +6,8 @@ class A
 
 private:
 public:
+    int num = 0;
+
     A(int _num)
     {
         num = _num;
@@ -20,7 +22,17 @@ public:
         num = a.num;
     }
 
-    int num = 0;
+    A operator=(const A &a)
+    {
+        cout << "= operator" << endl;
+        return *this;
+    }
+
+    ~A()
+    {
+        cout << "dtor" << endl;
+    }
+
     int sqare()
     {
         return num * num;
@@ -36,6 +48,8 @@ int main(int argc, char const *argv[])
 {
     A a = A(5);
     A b(a);
+    A c = b;
+    c = a;
     cout << b.sqare() << endl;
     cout << cube(b) << endl;
     return 0;
