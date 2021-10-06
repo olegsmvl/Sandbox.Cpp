@@ -1,30 +1,61 @@
 #include <iostream>
+#include "test1.cpp"
 using std::cout;
 using std::endl;
- 
-double divide(int, int);
- 
+
+//https://habr.com/ru/post/59349/
+
+class MyClass
+{
+    int num;
+
+public:
+    MyClass(int _num) : num(_num)
+    {
+        cout << "start ctor myclass " << num << endl;
+        if (_num == 0)
+            throw "must be not zero";
+        cout << "end ctor myclass " << num << endl;
+    }
+    ~MyClass()
+    {
+        cout << "dtor myclass " << num << endl;
+    }
+};
+
+class Creator
+{
+private:
+    MyClass *m1;
+    MyClass *m2;
+
+public:
+    Creator(int a, int b)
+    {
+        cout << "start ctor creator " << endl;
+        m1 = new MyClass(a);
+        m2 = new MyClass(b);
+        cout << "end ctor creator " << endl;
+    }
+};
+
+void test2();
+
 int main()
 {
-    int x = 500;
-    int y = 0;
-    try
-    {
-        double z = divide(x, y);
-        cout << z << endl;
-    }
-    catch (const char* msg)
-    {
-        cout << msg << endl;
-    }
-
-    cout << "The End..." << endl;
+    //test1();
+    test2();
     return 0;
 }
 
-double divide(int a, int b)
+void test2()
 {
-    if (b == 0)
-        throw "Division by zero!";
-    return a / b;
+    try
+    {
+        Creator cr(1, 0);
+    }
+    catch (...)
+    {
+        cout << "error" << endl;
+    }
 }
