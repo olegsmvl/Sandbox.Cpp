@@ -1,27 +1,18 @@
-#include <algorithm>
-#include <array>
 #include <iostream>
-#include <string_view>
- 
+#include <vector>
+#include <algorithm>
+
+bool isTenty(int num){
+  return (num % 10) == 0;
+}
+
 int main()
 {
-  std::array<std::string_view, 4> arr{ "apple", "banana", "walnut", "lemon" };
- 
-  // Определяем функцию непосредственно в том месте, где собираемся её использовать
-  auto found{ std::find_if(arr.begin(), arr.end(),
-                           [](std::string_view str) // вот наша лямбда, без поля captureClause
-                           {
-                             return (str.find("nut") != std::string_view::npos);
-                           }) };
- 
-  if (found == arr.end())
-  {
-    std::cout << "No nuts\n";
-  }
-  else
-  {
-    std::cout << "Found " << *found << '\n';
-  }
- 
+  int factor = 12;
+
+  std::vector<int> vec{13, 24, 40, 54, 32};
+  auto iter = std::find_if(vec.begin(), vec.end(), [factor](int num){return num % factor == 0; } );
+
+  std::cout << *iter << std::endl;
   return 0;
 }
