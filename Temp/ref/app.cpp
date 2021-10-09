@@ -1,11 +1,13 @@
 #include <iostream>
-#include <Windows.h>
 using namespace std;
+
+void print(const int &x){
+    cout << x << endl;
+}
 
 int main(int argc, char const *argv[])
 {
-    //Beep(523,500);
-    MessageBeep(0xFFFFFFFF);
-    cin.get(); // wait
+    print(45);
+
     return 0;
 }
