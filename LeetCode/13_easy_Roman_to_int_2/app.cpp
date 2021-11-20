@@ -9,7 +9,7 @@ public:
     int romanToInt(string s)
     {
         //
-        const unordered_map<string,int> digits{
+        const unordered_map<string, int> digits{
             {"I", 1},
             {"V", 5},
             {"X", 10},
@@ -24,7 +24,6 @@ public:
             {"CD", 400},
             {"CM", 900},
         };
-        
 
         //
         int result = 0;
@@ -35,27 +34,24 @@ public:
 
         while (i < s.size())
         {
-            string x = s.substr(i,1);
+            string symbols = "";
 
-            digit = digits.find(x)->second;
+            if (i < s.size() - 1)
+            {
+                symbols = s.substr(i, 2);
+                auto iter = digits.find(symbols);
 
-            if ((digit == 5) && (previousDigit == 1))
-                result += 3;
-            else if ((digit == 10) && (previousDigit == 1))
-                result += 8;
-            else if ((digit == 50) && (previousDigit == 10))
-                result += 30;
-            else if ((digit == 100) && (previousDigit == 10))
-                result += 80;
-            else if ((digit == 500) && (previousDigit == 100))
-                result += 300;
-            else if ((digit == 1000) && (previousDigit == 100))
-                result += 800;
-            else
-                result += digit;
+                if (iter != digits.end())
+                {
+                    result += iter->second;
+                    i += 2;
+                    continue;
+                }
+            }
 
-            previousDigit = digit;
-
+            symbols = s.substr(i, 1);
+            auto iter = digits.find(symbols);
+            result += iter->second;
             i++;
         }
 
@@ -68,7 +64,8 @@ int main(int argc, char const *argv[])
     vector<string> cases{"III", "IV", "IX", "LVIII", "MCMXCIV"};
     Solution sol;
 
-    for (auto str : cases){
+    for (auto str : cases)
+    {
         int result = sol.romanToInt(str);
         cout << str << ": ";
         cout << result << endl;
