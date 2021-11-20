@@ -9,14 +9,20 @@ public:
     int romanToInt(string s)
     {
         //
-        const unordered_map<char,int> digits{
-            {'I', 1},
-            {'V', 5},
-            {'X', 10},
-            {'L', 50},
-            {'C', 100},
-            {'D', 500},
-            {'M', 1000},
+        const unordered_map<string,int> digits{
+            {"I", 1},
+            {"V", 5},
+            {"X", 10},
+            {"L", 50},
+            {"C", 100},
+            {"D", 500},
+            {"M", 1000},
+            {"IV", 4},
+            {"IX", 9},
+            {"XL", 40},
+            {"XC", 90},
+            {"CD", 400},
+            {"CM", 900},
         };
         
 
@@ -25,8 +31,12 @@ public:
         int digit = 0;
         int previousDigit = 0;
 
-        for (auto x : s)
+        int i = 0;
+
+        while (i < s.size())
         {
+            string x = s.substr(i,1);
+
             digit = digits.find(x)->second;
 
             if ((digit == 5) && (previousDigit == 1))
@@ -45,6 +55,8 @@ public:
                 result += digit;
 
             previousDigit = digit;
+
+            i++;
         }
 
         return result;
