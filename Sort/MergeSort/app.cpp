@@ -58,5 +58,7 @@ int main(int argc, char const *argv[])
     for (auto x : v)
         cout << x << " ";
 
+    cout << endl;
+
     return 0;
 }
