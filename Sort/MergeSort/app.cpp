@@ -5,6 +5,8 @@ using namespace std;
 
 void mergeSort(vector<int> &a, size_t start, size_t end)
 {
+    cout << " start: " << start << " end: " << end << endl;
+
     if (end - start < 2)
         return;
 
@@ -13,11 +15,18 @@ void mergeSort(vector<int> &a, size_t start, size_t end)
         if (a[start] > a[start + 1])
             swap(a[start], a[start + 1]);
 
+        for (int x: a)
+            cout << x << " "; 
+
+        cout << endl;
+
         return;
     }
 
     mergeSort(a, start, (start + end) / 2);
     mergeSort(a, (start + end) / 2, end);
+
+    cout << "merge " << start << " " << end << endl;
 
     vector<int> b;
     size_t b1 = start;
@@ -46,7 +55,7 @@ void mergeSort(vector<int> &a, size_t start, size_t end)
 
 int main(int argc, char const *argv[])
 {
-    vector<int> v{3, 5, 2, 6, 8, 1};
+    vector<int> v{8, 7, 6, 5, 4, 3, 2, 1};
 
     for (auto x : v)
         cout << x << " ";
