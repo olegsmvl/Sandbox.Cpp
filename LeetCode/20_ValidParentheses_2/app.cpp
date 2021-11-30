@@ -25,65 +25,20 @@ public:
         {
             if (mapping.count(c) != 0)
             {
-                char topElement = brackets.empty() ? '#' : brackets.top();
-                
-                if (!brackets.empty())
-                    brackets.pop();
-
-                if (topElement != (mapping.find(c))->second)
-                    return false;
+                brackets.push(c);
             }
             else
-            {   
-                brackets.push(c);
+            {
+                if (brackets.empty())
+                    return false;
+                char open = brackets.top();
+                brackets.pop();
+                if (mapping.find(open)->second != c)
+                    return false;
             }
         }
 
         return brackets.empty();
-        // string brackets = "";
-
-        // for (auto x : s)
-        // {
-        //     if (x == '(')
-        //         brackets += '(';
-        //     if (x == ')')
-        //         brackets += ')';
-        //     if (x == '[')
-        //         brackets += '[';
-        //     if (x == ']')
-        //         brackets += ']';
-        //     if (x == '{')
-        //         brackets += '{';
-        //     if (x == '}')
-        //         brackets += '}';
-        // }
-
-        // if (brackets.size() % 2 != 0)
-        //     return false;
-
-        // int pairs = brackets.size() / 2;
-
-        // for (int j = 0; j < pairs; j++)
-        // {
-
-        //     int index_to_del = -1;
-        //     for (int i = 0; i < brackets.size() - 1; i++)
-        //         if ((brackets[i] == '[' &&
-        //              brackets[i + 1] == ']') ||
-        //             (brackets[i] == '(' &&
-        //              brackets[i + 1] == ')') ||
-        //             (brackets[i] == '{' &&
-        //              brackets[i + 1] == '}'))
-        //         {
-        //             index_to_del = i;
-        //             break;
-        //         }
-        //     if (index_to_del >= 0)
-        //         brackets.erase(index_to_del, 2);
-        // }
-
-        //return brackets.size() == 0;
-        return true;
     }
 };
 
@@ -91,7 +46,7 @@ int main(int argc, char const *argv[])
 {
     Solution sol;
 
-    vector<string> cases{"(dfaf)", "(dfaf", "{AAA}(BBB)", "{AAA(  }BBB)", "{(AAA)}"};
+    vector<string> cases{"()", "(", "{}()", "{(})", "{()}"};
 
     for (auto str : cases)
     {
