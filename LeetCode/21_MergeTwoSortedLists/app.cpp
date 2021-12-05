@@ -16,15 +16,54 @@ class Solution
 public:
     ListNode *mergeTwoLists(ListNode *list1, ListNode *list2)
     {
-        ListNode* first = nullptr;
-        
-        ListNode* iter1 = list1;
-        ListNode* iter2 = list2;
+        ListNode *first = nullptr;
+        ListNode *iter3 = nullptr;
 
-        if(iter1->val <= iter2->val)
+        ListNode *iter1 = list1;
+        ListNode *iter2 = list2;
+
+        if (iter1 == nullptr || iter2 == nullptr)
+            return nullptr;
+
+        if (iter1->val <= iter2->val)
+        {
             first = iter1;
+            iter1 = iter1->next;
+        }
+        else
+        {
+            first = iter2;
+            iter2 = iter2->next;
+        }
+        first->next = nullptr;
+        iter3 = first;
 
-        return list1;
+        while (iter1 != nullptr || iter2 != nullptr)
+        {
+            if (iter1 == nullptr){
+                iter3->next = iter2;
+                iter2 = iter2->next;
+                continue;
+            }
+            if (iter2 == nullptr){
+                iter3->next = iter1;
+                iter1 = iter1->next;
+                continue;
+            }
+
+            if (iter1->val <= iter2->val)
+            {
+                iter3->next = iter1;
+                iter1 = iter1->next;
+            }
+            else{
+                iter3->next = iter2;
+                iter2 = iter2->next;
+            }
+            iter3 = iter3->next;
+        }
+
+        return first;
     }
 };
 
@@ -48,9 +87,10 @@ ListNode *createList(vector<int> &vec)
     return first;
 }
 
-void print_list(ListNode* list){
-    ListNode* node = list;
-    
+void print_list(ListNode *list)
+{
+    ListNode *node = list;
+
     while (node != nullptr)
     {
         cout << node->val << " ";
@@ -65,10 +105,11 @@ int main(int argc, char const *argv[])
     vector<int> vec_list2{1, 3, 4};
     ListNode *list1 = createList(vec_list1);
     ListNode *list2 = createList(vec_list2);
-    Solution sol;
-    sol.mergeTwoLists(list1, list2);
-
     print_list(list1);
     print_list(list2);
+    Solution sol;
+    ListNode *list3 = sol.mergeTwoLists(list1, list2);
+    print_list(list3);
+
     return 0;
 }
