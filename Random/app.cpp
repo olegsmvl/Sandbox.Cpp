@@ -2,6 +2,9 @@
 #include <ctime>
 using namespace std;
 
+//rand() - это устаревший вариант
+//https://docs.microsoft.com/ru-ru/cpp/standard-library/random?view=msvc-170 - нужно использовать что то из этого
+
 int main(int argc, char const *argv[])
 {
     srand(time(0));
