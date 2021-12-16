@@ -1,8 +1,12 @@
 #include <iostream>
 #include <ctime>
+#include <random>
 using namespace std;
 
-int main(int argc, char const *argv[])
+//rand() - это устаревший вариант
+//https://docs.microsoft.com/ru-ru/cpp/standard-library/random?view=msvc-170 - нужно использовать что то из этого
+
+void old_method()
 {
     srand(time(0));
     for (size_t i = 0; i < 10; i++)
@@ -10,17 +14,25 @@ int main(int argc, char const *argv[])
         int val = rand();
         cout << val << endl;
     }
-    
+
     int last_time = time(0);
+}
 
-    // while(true){
-    //     int now = time(0);
-    //     if(last_time != now){
-    //         cout << "time: "  << now << endl;
-    //         last_time = now;
-    //     }
-    // }
+int main(int argc, char const *argv[])
+{
+    random_device rd;                      // non-deterministic generator
+    mt19937 gen(rd());                     // to seed mersenne twister.
+    uniform_int_distribution<> dist(1, 6); // distribute results between 1 and 6 inclusive.
 
+    for (int j = 0; j < 10; j++)
+    {
+        for (int i = 0; i < 5; ++i)
+        {
+            cout << dist(gen) << " "; // pass the generator to the distribution.
+        }
+        cout << endl;
+    }
+    cout << endl;
 
     return 0;
 }
