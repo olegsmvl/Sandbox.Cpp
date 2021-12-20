@@ -22,15 +22,25 @@ public:
         ListNode *iter1 = list1;
         ListNode *iter2 = list2;
 
-        if (iter1 == nullptr || iter2 == nullptr)
+        if (iter1 == nullptr && iter2 == nullptr)
             return nullptr;
 
-        if (iter1->val <= iter2->val)
+        if (iter1 == nullptr){
+            first = iter2;
+            iter2 = iter2->next;
+        }
+
+        else if (iter2 == nullptr){
+            first = iter1;
+            iter1 = iter1->next;
+        }
+
+        else if (iter1->val <= iter2->val)
         {
             first = iter1;
             iter1 = iter1->next;
         }
-        else
+        else if (iter1->val > iter2->val)
         {
             first = iter2;
             iter2 = iter2->next;
@@ -43,11 +53,13 @@ public:
             if (iter1 == nullptr){
                 iter3->next = iter2;
                 iter2 = iter2->next;
+                iter3 = iter3->next;
                 continue;
             }
             if (iter2 == nullptr){
                 iter3->next = iter1;
                 iter1 = iter1->next;
+                iter3 = iter3->next;
                 continue;
             }
 
@@ -103,7 +115,8 @@ int main(int argc, char const *argv[])
 {
     vector<int> vec_list1{1, 2, 4};
     vector<int> vec_list2{1, 3, 4};
-    ListNode *list1 = createList(vec_list1);
+    // ListNode *list1 = createList(vec_list1);
+    ListNode *list1 = nullptr;
     ListNode *list2 = createList(vec_list2);
     print_list(list1);
     print_list(list2);

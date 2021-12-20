@@ -9,8 +9,8 @@ int main(int argc, char const *argv[])
 
     auto iter = container->begin();
 
-    iter++;
     container->insert(iter, 100);
+    iter++;
 
     iter++;
     iter++;
