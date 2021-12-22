@@ -5,6 +5,7 @@
 using namespace std;
 
 //https://www.youtube.com/watch?v=YkUPiIYKtSc&ab_channel=RomanBrovko
+//http://algolist.ru/sort/radix_sort.php
 
 int maxRadix(int *vec, int n)
 {
@@ -30,24 +31,52 @@ void radix_pass(int *a, int n, int place)
 {
     cout << "place: " << place << "| digits: ";
     int k = 10;
-    int *c = new int[k];
+    int *counters = new int[k];
+    auto output = new int[n];
 
     for (int i = 0; i < k; i++)
     {
-        c[i] = 0;
+        counters[i] = 0;
     }
 
     for (int i = 0; i < n; i++)
     {
         int digit = (a[i] / (int)pow(10, place)) % 10;
         cout << digit << " ";
-        c[digit]++;
+        counters[digit]++;
     }
     cout << endl;
     cout << "counters: ";
     for (int i = 0; i < k ; i++){
-        cout << c[i] << " ";
+        cout << counters[i] << " ";
     }
+    cout << endl;
+    //cumulative counters
+    for (int i = 1; i < k; i++){
+        counters[i] += counters[i - 1];
+    }
+    
+    cout << "cumulative counters ";
+    for (int i = 0; i < k; i++){
+        cout << counters[i] << " ";
+    }
+
+    cout << endl;
+
+    for (int i=0; i < n; i++){
+        int digit = (a[i] / (int)pow(10, place)) % 10;
+        output[counters[digit]] = a[i];
+        counters[digit]++;
+    }
+    cout << "output: ";
+    for (int i = 0 ; i < n; i++){
+        cout << *(output + i) << " ";
+    }
+
+    swap(a, output);
+
+    delete counters;
+    delete output;
     cout << endl;
 }
 
