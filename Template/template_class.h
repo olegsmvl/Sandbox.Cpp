@@ -9,9 +9,11 @@ public:
         id = _id;
     }
 
-    T getData(){
-        return id;
-    }
+    T getData();
 };
 
+template <typename T>
+T Account<T>::getData(){
+    return id;
+}
 

@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include "template_class.cpp"
+#include "template_class.h"
 using namespace std;
 
 
