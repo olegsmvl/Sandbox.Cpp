@@ -1,21 +1,23 @@
 #include <iostream>
-#include <stack>
+#include <queue>
 using namespace std;
 
 int main(int argc, char const *argv[])
 {
-    stack<int> st;
-    st.push(12);
-    st.push(4);
-    st.push(8);
+    queue<int> q;
+    q.push(12);
+    q.push(4);
+    q.push(8);
 
-    cout << "size: " << st.size() << endl;
-    cout << st.top() << " " << &st.top() << endl;
-    st.pop();
-    cout << st.top() << " " << &st.top() << endl;
-    st.pop();
-    cout << st.top() << " " << &st.top() << endl;
-    cout << "size: " << st.size() << endl;
+    cout << "size: " << q.size() << endl;
+    cout << q.front() << " " << &q.front() << endl;
+    q.pop();
+    cout << q.front() << " " << &q.front() << endl;
+    q.pop();
+    cout << q.front() << " " << &q.front() << endl;
+    q.pop();
+
+    cout << "size: " << q.size() << endl;
 
     return 0;
 }
