@@ -1,8 +1,4 @@
-if [ -d build ] 
-then
-    rm -r build
-fi
-
+rm -r build
 mkdir build
 g++ -std=c++11 app.cpp -pthread -o build/app 
 build/app
