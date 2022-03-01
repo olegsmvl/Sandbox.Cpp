@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <unordered_map>
+#include <algorithm>
 using namespace std;
 
 class Solution
@@ -17,9 +18,36 @@ public:
             leaving[guest[1]] += 1;
         }
 
+
+
+        vector<int> arriving_keys;
+        vector<int> leaving_keys;
+        vector<int> result_keys;
+
+        for (auto x : arriving){
+            arriving_keys.push_back(x.first);
+        }
+
+        for (auto x : leaving){
+            leaving_keys.push_back(x.first);
+        }
+
+        set_union(arriving_keys.begin(), arriving_keys.end(),
+            leaving_keys.begin(), leaving_keys.end(),
+            back_inserter(result_keys)
+        );
+
+        sort(result_keys.begin(), result_keys.end());
+
         int current = 0;
 
-        
+        for (int day : result_keys){
+            current -= leaving[day];
+            current += arriving[day];
+
+            if (current > res)
+                res = current;
+        }
 
         return res;
     }
