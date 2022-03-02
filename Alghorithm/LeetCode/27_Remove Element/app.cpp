@@ -6,27 +6,29 @@ using namespace std;
 class Solution
 {
 public:
-    int Solve(vector<int> &vec)
+    int Solve(vector<int> &nums, int val)
     {
-        int left = 0;
-        for (int r = 1; r < vec.size(); r++){
-            if (vec[left] != vec[r]){
-                left++;
-                vec[left] = vec[r];
+        int j = 0;
+        for (int i = 0; i < nums.size(); i++)
+        {
+            if (nums[i] != val){
+                nums[j] = nums[i];
+                j++;
             }
         }
-        vec.erase(vec.begin()+(left + 1), vec.end());
-        return left+1;
+        nums.erase(nums.begin()+j, nums.end());
+        return j;
     }
 };
 
 int main()
 {
-    vector<int> input{1, 2, 3, 4, 4, 4, 5};
+    vector<int> nums{0,1,2,2,3,0,4,2};
+    int val = 2;
     Solution sl;
-    int result = sl.Solve(input);
+    int result = sl.Solve(nums, val);
 
-    for (int x : input)
+    for (int x : nums)
     {
         cout << x << " ";
     }
