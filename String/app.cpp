@@ -24,5 +24,9 @@ int main(int argc, char const *argv[])
 
     cout << res << endl;
 
+    cout << str1 << endl;
+    str1.erase(str1.length()-2, 1);
+    cout << str1 << endl;
+
     return 0;
 }
