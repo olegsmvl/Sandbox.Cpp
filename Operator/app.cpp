@@ -5,9 +5,14 @@ class A{
     public:
     int value;
     A(int _value): value(_value){};
+    A(){}
 
     A operator-(const A &a){
         return A(value - a.value);
+    }
+
+    void operator=(const int val){
+        value = val;
     }
 };
 
@@ -19,5 +24,11 @@ int main(int argc, char const *argv[])
 {
     A c = A(9) - A(5);
     cout << c.value << endl;
+
+    A d;
+    d = 10;
+
+    cout << d.value << endl;
+
     return 0;
 }
