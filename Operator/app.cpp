@@ -14,6 +14,9 @@ class A{
     void operator=(const int val){
         value = val;
     }
+
+    /* for posible "cout << d << endl;" */
+    operator int() const {return value;}
 };
 
 A operator+(const A &a, const A &b){
@@ -29,6 +32,7 @@ int main(int argc, char const *argv[])
     d = 10;
 
     cout << d.value << endl;
+    cout << d << endl;
 
     return 0;
 }
