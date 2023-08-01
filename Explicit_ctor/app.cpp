@@ -15,8 +15,11 @@ public:
 
 int main(int argc, char const *argv[]) {
   // work
-  MyClass obj1 = 15;
+  float x = 12.8f;
+  int m = x;
+  MyClass obj1 = x;
   cout << obj1.value1 << endl;
+  cout << m << endl;
 
   // not work
   //   MyClassExplicit obj2 = 7;
