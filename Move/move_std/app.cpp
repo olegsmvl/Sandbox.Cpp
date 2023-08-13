@@ -8,12 +8,14 @@ class MoveClass
 public:
     MoveClass(int n) : num(n) {}
 
+    // copy ctor
     MoveClass(const MoveClass &cl) = delete;
     // MoveClass(const MoveClass &cl) : num(cl.num)
     // {
     //     cout << "copy ctor" << endl;
     // }
 
+    // move ctor
     MoveClass(MoveClass &&cl) : num(cl.num)
     {
         cl.num = 0;
