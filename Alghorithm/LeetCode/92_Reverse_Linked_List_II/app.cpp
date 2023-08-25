@@ -59,36 +59,111 @@ void print_node(ListNode *node, string name) {
 
 class Solution {
 public:
-  ListNode *deleteDuplicates(ListNode *head) {
-    ListNode *slow = head;
-    ListNode *fast = head->next;
+  ListNode *reverseBetween(ListNode *head, int left, int right) {
+    if (left == right) {
+      return head;
+    }
 
-    while (fast && fast->next) {
+    if ( right - left == 1){
+      int l_st = left;
+       auto l = head;
+       ListNode* pr = nullptr;
+      while (l_st > 1){
+        pr = l;
+        l=l->next;
+        l_st --;
+      }
+      auto r = l->next;
+      auto nex = l->next->next;
+      
+     
+      
+      r->next = l;
+      l->next = nex;
 
-      while (fast != nullptr && fast->val == slow->val) {
-        fast = fast->next;
+      if (pr){
+        pr->next = r;
+        return head;
       }
 
-      slow->next = fast;
-      slow = slow->next;
-
-      print_node(fast, "fast");
-      print_node(slow, "slow");
+      return r;
     }
+
+    ListNode *l = head;
+    ListNode *r = head;
+    ListNode *prev_l = nullptr;
+    ListNode *prev_r = nullptr;
+    ListNode *next_l = head->next;
+    ListNode *next_r = head->next;
+
+    if (left == 1) {
+      next_l = l->next;
+    }
+
+    while (right > 1) {
+      right--;
+
+      if (left > 1) {
+        prev_l = l;
+        l = l->next;
+        next_l = l->next;
+        left--;
+      }
+
+      prev_r = r;
+      r = r->next;
+      next_r = r->next;
+    }
+
+    // print_node(l, "l");
+    // print_node(r, "r");
+    // print_node(next_l, "next_l");
+    // print_node(next_r, "next_r");
+    // print_node(prev_l, "prev_l");
+    // print_node(prev_r, "prev_r");
+    // print_node(head, "head");
+
+    // print_list(head);
+
+    // cout << "==============" << endl;
+
+    l->next = next_r;
+
+    r->next = next_l;
+
+    if (prev_l) {
+      prev_l->next = r;
+    } else {
+      head = r;
+    }
+
+    if (prev_r) {
+      prev_r->next = l;
+    }
+
+    cout << "==============" << endl;
+
+    print_node(l, "l");
+    print_node(r, "r");
+    print_node(next_l, "next_l");
+    print_node(next_r, "next_r");
+    print_node(prev_l, "prev_l");
+    print_node(prev_r, "prev_r");
+    print_node(head, "head");
 
     return head;
   }
 };
 
 int main(int argc, char const *argv[]) {
-  vector<int> vec_list{1, 1, 2, 3, 3};
+  vector<int> vec_list{1, 2, 3, 4};
   ListNode *list = createList(vec_list);
   print_list(list);
 
   Solution sol;
-  sol.deleteDuplicates(list);
+  auto head = sol.reverseBetween(list, 1, 4);
 
-  print_list(list);
+  print_list(head);
 
   return 0;
 }
