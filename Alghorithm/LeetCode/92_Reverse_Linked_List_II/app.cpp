@@ -64,92 +64,55 @@ public:
       return head;
     }
 
-    if ( right - left == 1){
-      int l_st = left;
-       auto l = head;
-       ListNode* pr = nullptr;
-      while (l_st > 1){
-        pr = l;
-        l=l->next;
-        l_st --;
-      }
-      auto r = l->next;
-      auto nex = l->next->next;
-      
-     
-      
-      r->next = l;
-      l->next = nex;
+    auto l = head;
+    auto r = head;
+    ListNode *start = nullptr;
+    ListNode *end = nullptr;
+    ListNode *border_l = nullptr;
+    ListNode *border_r = nullptr;
 
-      if (pr){
-        pr->next = r;
-        return head;
-      }
-
-      return r;
-    }
-
-    ListNode *l = head;
-    ListNode *r = head;
-    ListNode *prev_l = nullptr;
-    ListNode *prev_r = nullptr;
-    ListNode *next_l = head->next;
-    ListNode *next_r = head->next;
+    ListNode *prev = nullptr;
+    ListNode *nex = nullptr;
 
     if (left == 1) {
-      next_l = l->next;
+      start = head;
     }
 
     while (right > 1) {
-      right--;
-
-      if (left > 1) {
-        prev_l = l;
+      while (left > 1) {
+        border_l = l;
         l = l->next;
-        next_l = l->next;
+        r = r->next;
         left--;
+        right--;
+        prev = border_l;
+        start = l;
+        end = l;
       }
 
-      prev_r = r;
-      r = r->next;
-      next_r = r->next;
+      nex = r->next;
+      r->next = prev;
+      prev = r;
+      r = nex;
+      border_r = r->next;
+      end = r;
+      right--;
     }
 
-    // print_node(l, "l");
-    // print_node(r, "r");
-    // print_node(next_l, "next_l");
-    // print_node(next_r, "next_r");
-    // print_node(prev_l, "prev_l");
-    // print_node(prev_r, "prev_r");
-    // print_node(head, "head");
+    r->next = prev;
 
-    // print_list(head);
+    print_node(border_l, "border_l");
+    print_node(start, "start");
+    print_node(end, "end");
+    print_node(border_r, "border_r");
 
-    // cout << "==============" << endl;
+    start->next = border_r;
 
-    l->next = next_r;
-
-    r->next = next_l;
-
-    if (prev_l) {
-      prev_l->next = r;
+    if (border_l) {
+      border_l->next = end;
     } else {
-      head = r;
+      head = end;
     }
-
-    if (prev_r) {
-      prev_r->next = l;
-    }
-
-    cout << "==============" << endl;
-
-    print_node(l, "l");
-    print_node(r, "r");
-    print_node(next_l, "next_l");
-    print_node(next_r, "next_r");
-    print_node(prev_l, "prev_l");
-    print_node(prev_r, "prev_r");
-    print_node(head, "head");
 
     return head;
   }
@@ -161,7 +124,7 @@ int main(int argc, char const *argv[]) {
   print_list(list);
 
   Solution sol;
-  auto head = sol.reverseBetween(list, 1, 4);
+  auto head = sol.reverseBetween(list, 1, 1);
 
   print_list(head);
 
