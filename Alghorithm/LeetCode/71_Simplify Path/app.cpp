@@ -1,113 +1,75 @@
 #include <iostream>
+#include <stack>
 using namespace std;
 
 class Solution {
 public:
   string simplifyPath(string path) {
-    string ans = "";
-    int dot_count = 0;
-    bool dots_only = true;
+    int l = 0;
+    int r = 0;
 
-    for (char c : path) {
+    int len = path.size();
 
-      if (c != '.' && c != '/') {
-        dots_only = false;
-      }
+    cout << "len = " << len << endl;
 
-      if (c == '.') {
-        dot_count++;
-        ans.push_back(c);
-        continue;
-      }
-
-      if (c != '/') {
-        dot_count = 0;
-      }
-
-      if (c == '/' && dot_count > 0 && dots_only) {
-        dots_only = true;
-        if (dot_count > 2) {
-          ans.push_back('/');
-          dot_count = 0;
-          continue;
-        }
-
-        if (dot_count == 2) {
-          ans.pop_back();
-          ans.pop_back();
-
-          if (ans.size() > 1) {
-            ans.pop_back();
-          }
-
-          while (last(ans) != '/') {
-            ans.pop_back();
-          }
-          dot_count = 0;
-          continue;
-        }
-
-        if (dot_count == 1) {
-          ans.pop_back();
-          dot_count = 0;
-          continue;
-        }
-      }
-
-      if (c == '/' && last(ans) == '/') {
-        continue;
-      }
-
-      ans.push_back(c);
+    while (r < len && path[r] == '/') {
+      l++;
+      r++;
     }
 
+    stack<string> st;
 
-    if (dot_count > 0 && dots_only) {
-      if (dot_count > 2) {
-        ans.push_back('/');
-        dot_count = 0;
+    while (r < len && l < len) {
+
+      while (r < len && path[r] != '/') {
+        r++;
       }
 
-      if (dot_count == 2) {
-        ans.pop_back();
-        ans.pop_back();
+      string word = path.substr(l, r - l);
 
-        if (ans.size() > 1) {
-          ans.pop_back();
-        }
+      cout << "word = " << word << endl;
 
-        while (last(ans) != '/') {
-          ans.pop_back();
+      if (word.size() > 0) {
+        if (word == ".") {
+
+        } else if (word == ".." && !st.empty()) {
+          st.pop();
+        } else if (word == ".." && st.empty()) {
+
+        } else {
+          st.push(word);
         }
-        dot_count = 0;
       }
 
-      if (dot_count == 1) {
-        ans.pop_back();
-        dot_count = 0;
+      l = r;
+
+      while (r < len && path[r] == '/') {
+        l++;
+        r++;
       }
     }
 
-    if (ans.size() > 1 && last(ans) == '/') {
-      ans.pop_back();
+    string result = "";
+
+    while (!st.empty()) {
+      result = st.top() + "/" + result;
+      st.pop();
     }
 
-    return ans;
-  }
+    result = "/" + result;
 
-  char last(string &str) {
-
-    if (!str.empty()) {
-      return str.back();
+    if (result.size() > 1) {
+      result.pop_back();
     }
 
-    return '&';
+    return result;
   }
 };
 
 int main() {
-//   string str = "/a/./b/../../c/";
-  string str = "/a/../";
+  //   string str = "/a/./b/../../c/";
+  // string str = "/a/../";
+  string str = "/home//foo/";
   Solution sol;
 
   cout << str << endl;
