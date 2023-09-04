@@ -22,6 +22,10 @@ public:
         cout << "move ctor" << endl;
     }
 
+    int get_num(){
+        return num;
+    }
+
     MoveClass &operator=(const MoveClass &cl) = delete;
     // MoveClass &operator=(const MoveClass &cl)
     // {
@@ -55,8 +59,13 @@ public:
 int main(int argc, char const *argv[])
 {
     MoveClass cl1(5);
+     cout << cl1.get_num() << endl;
     MoveClass cl2(8);
     MoveClass cl3 = std::move(cl1);
     cl3 = std::move(cl2);
+
+    cout << cl3.get_num() << endl;
+    cout << cl1.get_num() << endl;
+
     return 0;
 }
