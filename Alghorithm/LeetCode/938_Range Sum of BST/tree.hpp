@@ -1,5 +1,7 @@
 #pragma once
 
+#include <iostream>
+#include <queue>
 #include <vector>
 #define null -100
 
@@ -31,36 +33,30 @@ TreeNode *CreateTree() {
 }
 
 TreeNode *CreateTree(vector<int> nodes) {
-  vector<vector<int>> tree;
+  vector<vector<TreeNode *>> tree;
 
   int start = 0;
 
   int len = nodes.size();
-  cout << "len: " << len << " ";
   int layer_len = 1;
-  cout << "layer_len: " << layer_len << " " << endl;
-  vector<int> layer;
 
-  /* to vector vector layers*/
+  /* to vector (vector nodes pointers) layers */
   while (start + layer_len <= len) {
-
-    cout << "start: " << start << " " << endl;
-    cout << "layer_len: " << layer_len << " " << endl;
+    vector<TreeNode *> layer;
 
     for (int i = 0; i < layer_len; i++) {
-      layer.push_back(nodes[start + i]);
+      TreeNode *node = nullptr;
+      int val = nodes[start + i];
+
+      if (val != null) {
+        node = new TreeNode(val);
+      }
+      layer.push_back(node);
     }
     start += layer_len;
     layer_len *= 2;
     tree.push_back(layer);
   }
-
-  for (auto layer : tree) {
-    for (int x : layer) {
-      cout << x << " ";
-    }
-  }
-  cout << endl;
 
   /* to tree*/
   TreeNode *root = nullptr;
@@ -69,30 +65,23 @@ TreeNode *CreateTree(vector<int> nodes) {
 
   /* by each layer*/
   for (int i = 0; i < layers_num - 1; i++) {
-    vector<int> parents = tree[i];
-    vector<int> children = tree[i + 1];
+    vector<TreeNode *> parents = tree[i];
+    vector<TreeNode *> children = tree[i + 1];
 
     int i_child = 0;
 
-    for (int p : parents) {
-      TreeNode *node = new TreeNode(p);
-      int l_child = children[i_child];
-      int r_child = children[i_child + 1];
+    for (TreeNode *p : parents) {
 
-      if (l_child != null) {
-        node->left = new TreeNode(children[l_child]);
-      } else {
-        node->left = nullptr;
-      }
+      TreeNode *l_child = children[i_child];
+      TreeNode *r_child = children[i_child + 1];
 
-      if (r_child != null) {
-        node->right = new TreeNode(children[r_child]);
-      } else {
-        node->right = nullptr;
+      if (p != nullptr) {
+        p->left = l_child;
+        p->right = r_child;
       }
 
       if (i == 0) {
-        root = node;
+        root = p;
       }
 
       i_child += 2;
@@ -100,4 +89,28 @@ TreeNode *CreateTree(vector<int> nodes) {
   }
 
   return root;
+}
+
+void print_tree(TreeNode *root) {
+  queue<TreeNode *> q;
+  q.push(root);
+
+  while (!q.empty()) {
+    int len = q.size();
+    for (int i = 0; i < len; i++) {
+      auto node = q.front();
+      q.pop();
+
+      if (node->left) {
+        q.push(node->left);
+      }
+
+      if (node->right) {
+        q.push(node->right);
+      }
+
+      cout << node->val << " ";
+    }
+    cout << endl;
+  }
 }

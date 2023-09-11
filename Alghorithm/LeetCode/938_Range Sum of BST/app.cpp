@@ -1,38 +1,46 @@
+#include "tree.hpp"
 #include <iostream>
 #include <vector>
-#include "tree.hpp"
 
 using namespace std;
 
+class Solution {
+public:
+  int rangeSumBST(TreeNode *node, int low, int high) {
 
-int min_lenght(TreeNode *node) {
-  if (node == nullptr) {
-    return 0;
+    if (!node) {
+      return 0;
+    }
+
+    int ans = 0;
+
+    if (low <= node->val && node->val <= high) {
+      ans += node->val;
+    }
+
+    if (low <= node->val) {
+      ans += rangeSumBST(node->left, low, high);
+    }
+
+    if (node->val <= high) {
+      ans += rangeSumBST(node->right, low, high);
+    }
+
+    return ans;
   }
 
-  if (node->left == nullptr && node->right == nullptr) {
-    return 1;
-  }
-
-  int left = min_lenght(node->left);
-  int right = min_lenght(node->right);
-
-  if (left == 0 && right != 0) {
-    return right + 1;
-  }
-
-  if (left != 0 && right == 0) {
-    return left + 1;
-  }
-
-  return 1 + min(left, right);
-}
+  int sum = 0;
+};
 
 int main() {
-    
-  auto tree = CreateTree({2,null,3,null,4,null,5,null,6});
 
-  int result = min_lenght(tree);
+  auto tree = CreateTree({10, 5, 15, 3, 7, null, 18});
+
+  Solution sol;
+
+  print_tree(tree);
+
+  int result = sol.rangeSumBST(tree, 7, 15);
 
   cout << result << endl;
 
