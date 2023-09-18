@@ -41,12 +41,17 @@ TreeNode *CreateTree(vector<int> nodes) {
   int layer_len = 1;
 
   /* to vector (vector nodes pointers) layers */
-  while (start + layer_len <= len) {
+  while (start + 1 <= len) {
     vector<TreeNode *> layer;
 
     for (int i = 0; i < layer_len; i++) {
       TreeNode *node = nullptr;
-      int val = nodes[start + i];
+
+      int val = null;
+
+      if ((start + i) < len) {
+        val = nodes[start + i];
+      }
 
       if (val != null) {
         node = new TreeNode(val);
@@ -113,4 +118,14 @@ void print_tree(TreeNode *root) {
     }
     cout << endl;
   }
+}
+
+void print_traversal_in(TreeNode *root) {
+  if (!root) {
+    return;
+  }
+  print_traversal_in(root->left);
+  cout << root->val << " ";
+  print_traversal_in(root->right);
+  return;
 }
