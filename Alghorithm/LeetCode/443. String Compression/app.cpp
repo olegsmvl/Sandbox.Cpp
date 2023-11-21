@@ -5,34 +5,35 @@ using namespace std;
 class Solution {
 public:
   int compress(vector<char> &chars) {
-    int i = 0;
-    int j = 0;
-
-    int res_idx = 0;
-
     int len = chars.size();
+
+    int i = 0;
     int count = 0;
-    while (i < len && j < len) {
-      while (chars[i] == chars[j]) {
+    int idx = 0;
+
+    while (i < len) {
+      char first = chars[i];
+
+      while (i < len && chars[i] == first) {
+        i++;
         count++;
-        j++;
       }
 
-      chars[res_idx] = chars[i];
-      res_idx++;
+      chars[idx] = first;
+      idx++;
 
       if (count > 1) {
-        string str = to_string(count);
-        for (char c : str) {
-          chars[res_idx] = c;
-          res_idx++;
+        string num = to_string(count);
+        for (char c : num) {
+          chars[idx] = c;
+          idx++;
         }
-      } 
+      }
 
-      i = j;
       count = 0;
     }
-    return res_idx;
+
+    return idx;
   }
 };
 

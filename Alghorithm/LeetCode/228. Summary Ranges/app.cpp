@@ -5,25 +5,27 @@ using namespace std;
 class Solution {
 public:
   vector<string> summaryRanges(vector<int> &nums) {
-    int i = 0;
-    int j = 0;  
-
-    int len = nums.size();
     vector<string> result;
 
-    while (i < len && j < len) {
-      j++;
+    int i = 0;
+    int count = 0;
+    int len = nums.size();
 
-      if ((j == len) || (nums[j] != (nums[j - 1] + 1))) {
-        if (j - i > 1) {
-          result.push_back(to_string(nums[i]) + "->" + to_string(nums[j - 1]));
-        } else {
-          result.push_back(to_string(nums[i]));
-        }
-        i = j;
+    while (i < len) {
+      int first = nums[i];
+      while (i < len - 1 && nums[i] + 1 == nums[i + 1]) {
+        i++;
+        count++;
       }
-    }
 
+      if (count > 0) {
+        result.push_back(to_string(first) + "->" + to_string(nums[i]));
+      } else {
+        result.push_back(to_string(first));
+      }
+      i++;
+      count = 0;
+    }
     return result;
   }
 };

@@ -5,19 +5,11 @@ using namespace std;
 class Solution {
 public:
   int findMaxConsecutiveOnes(vector<int> &nums) {
-
-    int j = 0;
-
-    bool remove = false;
-
     int len = nums.size();
 
-    if (len == 1) {
-      return 1;
-    }
-
-    int max_count = 0;
+    int j = 0;
     int zeros = 0;
+    int max_count = 0;
 
     for (int i = 0; i < len; i++) {
       if (nums[i] == 0) {
@@ -31,9 +23,9 @@ public:
         j++;
       }
 
-      max_count = max(i - j + 1, max_count);
+      int cur_count = i - j + 1;
+      max_count = max(cur_count, max_count);
     }
-
     return max_count;
   }
 };
