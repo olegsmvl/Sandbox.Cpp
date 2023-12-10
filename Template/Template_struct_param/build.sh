@@ -4,5 +4,5 @@ then
 fi
 
 mkdir build
-g++ -std=c++11 app.cpp -pthread -o build/app -Wall -Wextra
+g++ -std=c++11 app.cpp -pthread -o build/app 
 build/app

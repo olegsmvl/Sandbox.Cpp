@@ -1,75 +1,74 @@
+#include <functional>
 #include <iostream>
-#include <vector>
-#include <unordered_map>
-#include <map>
 #include <limits>
+#include <unordered_set>
+#include <vector>
+
 using namespace std;
+
+struct PointHash {
+  size_t operator()(const Point &p) const {
+    string str = to_string(p.x) + to_string(p.y);
+    std::hash<string> h;
+    return h(str);
+  }
+};
+
+struct PointEqual {
+  bool operator()(const Point &lhs, const Point &rhs) const {
+    return lhs.x == rhs.x && lhs.x == rhs.x;
+  }
+};
+
+bool isReflected(vector<Point> &points) {
+  if (points.empty()) {
+    return true; // No points to reflect
+  }
+
+  unordered_set<Point, PointHash, PointEqual> pointSet;
+
+  int min_x = INT32_MAX;
+  int max_x = INT32_MIN;
+
+  for (Point p : points) {
+    min_x = min(min_x, p.x);
+    max_x = max(max_x, p.x);
+
+    pointSet.insert(p);
+  }
+
+  double line = (max_x - min_x) / 2 + min_x;
+
+  for (const Point &p : points) {
+    int x = p.x;
+    int y = p.y;
+
+    int dist = line - x;
+    int reflected_x = line + dist;
+    Point reflected_p{reflected_x, y};
+
+    if (pointSet.find(reflected_p) == pointSet.end()) {
+      return false;
+    }
+  }
+
+  return true;
+}
 
 class Solution {
 public:
-    bool isReflected(vector<vector<int>>& points) {
-        int x_min = INT_MAX;
-        int x_max = INT_MIN;
-
-        map<vector<int>, int> m;
-
-        for (auto p : points){
-            x_min = min(x_min,  p[0]);
-            x_max = max(x_max,  p[0]);
-
-            m[p]++;
-        }
-
-        for (auto pair : m){
-            cout << pair.first[0] << " " << pair.first[1] << " : " << pair.second << endl;
-        }
-
-        float x_line = x_min + (x_max - x_min) / 2.0;
-
-        cout << "x_line: " << x_line << endl;
-
-        for (auto p : points){
-           int x = p[0];
-           int y = p[1];
-
-        //    m[p]--;
-
-        //   if (m[p] <= 0){
-        //       m.erase(p);
-        //   }
-
-           int x_refl = 0;
-
-           if (x < x_line) {
-               x_refl = x_line + (x_line - x);
-           } else{
-               x_refl = x_line - ( x - x_line);
-           }
-
-           vector<int> p_refl{x_refl,y};
-
-           cout << "p: " << p[0] << " " << p[1] << " | ";  
-           cout << "p_refl: " << p_refl[0] << " " << p_refl[1] << endl;  
-
-           if (m.count(p_refl) == 0){
-               return false;
-           }
-
-        }
-
-        return true;
-    }
+  bool isReflected(vector<vector<int>> &points) {
+    using t = vector<int>;
+    unordered_set<t> s;
+    return true;
+  }
 };
 
-int main()
-{
-    Solution sol;
+int main() {
+  vector<vector<int>> points = {{1, 1}, {1, 1}};
+  Solution sol;
+  bool result = sol.isReflected(points);
+  cout << (result ? "True" : "False") << endl;
 
-    // vector<vector<int>> points = {{1,1},{-1,1}};
-    // vector<vector<int>> points = {{0,0},{0,0}};
-    vector<vector<int>> points = {{0,0},{1,0}};
-
-    bool result =  sol.isReflected(points);
-    cout << result << endl;
-    return 0;
+  return 0;
 }
