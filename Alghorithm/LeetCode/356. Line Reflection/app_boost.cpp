@@ -1,3 +1,4 @@
+#include <boost/unordered_set.hpp>
 #include <functional>
 #include <iostream>
 #include <limits>
@@ -8,22 +9,8 @@ using namespace std;
 
 class Solution {
 public:
-  struct PointHash {
-    size_t operator()(const vector<int> &p) const {
-      string str = to_string(p[0]) + to_string(p[1]);
-      std::hash<string> h;
-      return h(str);
-    };
-  };
-
-  struct PointEqual {
-    bool operator()(const vector<int> &lhs, const vector<int> &rhs) const {
-      return lhs[0] == rhs[0] && lhs[1] == rhs[1];
-    }
-  };
-
   bool isReflected(vector<vector<int>> &points) {
-    unordered_set<vector<int>, PointHash, PointEqual> s;
+    boost::unordered_set<vector<int>> s;
 
     int min_x = INT32_MAX;
     int max_x = INT32_MIN;
@@ -45,7 +32,7 @@ public:
 
       vector<int> refl_p{refl_x, y};
 
-      if (s.find(refl_p) == s.end()){
+      if (s.find(refl_p) == s.end()) {
         return false;
       }
     }
