@@ -10,7 +10,7 @@ class Solution {
 public:
   struct PointHash {
     size_t operator()(const vector<int> &p) const {
-      string str = to_string(p[0]) + to_string(p[1]);
+      string str = to_string(p[0] * 1000) + to_string(p[1]);
       std::hash<string> h;
       return h(str);
     };
@@ -40,12 +40,12 @@ public:
       int x = p[0];
       int y = p[1];
 
-      int dist = line - x;
+      double dist = line - x;
       int refl_x = line + dist;
 
       vector<int> refl_p{refl_x, y};
 
-      if (s.find(refl_p) == s.end()){
+      if (s.find(refl_p) == s.end()) {
         return false;
       }
     }
@@ -55,9 +55,10 @@ public:
 };
 
 int main() {
-  vector<vector<int>> points = {{1, 1}, {-1, 1}};
+  // vector<vector<int>> points = {{1, 1}, {-1, 1}};
   // vector<vector<int>> points = {{0,0},{0,0}};
   // vector<vector<int>> points = {{0, 0}, {1, 0}};
+  vector<vector<int>> points = {{1, 1}, {-4, 1}};
   Solution sol;
   bool result = sol.isReflected(points);
   cout << (result ? "True" : "False") << endl;

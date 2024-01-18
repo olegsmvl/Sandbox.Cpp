@@ -27,7 +27,7 @@ public:
       int x = p[0];
       int y = p[1];
 
-      int dist = line - x;
+      double dist = line - x;
       int refl_x = line + dist;
 
       vector<int> refl_p{refl_x, y};
