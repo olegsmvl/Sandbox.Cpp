@@ -1,20 +1,24 @@
+#include <chrono>
 #include <iostream>
-#include <unordered_map>
-#include <vector>
-using namespace std;
-
-
-vector<int> intersect(vector<int>& vec1, vector<int>& vec2){
-
-}
 
 
 int main() {
-  vector<int> vec1{1, 2, 3, 2, 0};
-  vector<int> vec2{5, 1, 2, 7, 3, 2};
+  // Запускаем таймер
+  auto start = std::chrono::high_resolution_clock::now();
 
-  auto result = intersect(vec1, vec2);
+  // Здесь размещаем код, время выполнения которого необходимо измерить
+  int sum = 0;
+  for (int i = 0; i < 1000000; ++i) {
+    sum += i;
+  }
+  std::cout << "Sum: " << sum << std::endl;
 
+  // Останавливаем таймер
+  auto end = std::chrono::high_resolution_clock::now();
+
+  // Рассчитываем и выводим затраченное время
+  std::chrono::duration<double, std::milli> duration = end - start;
+  std::cout << "Time taken: " << duration.count() << " ms" << std::endl;
 
   return 0;
 }
