@@ -1,10 +1,30 @@
 #include <chrono>
+#include <functional>
 #include <iostream>
 #include <thread>
 
 using namespace std;
 
-#define _GLIBCXX_HAS_GTHREADS
+class Timer {
+public:
+  // Timer() { thr = std::thread(func); }
+
+  void periodic_call(std::function<void()> func, int priod) {
+    while (1) {
+      func();
+      std::this_thread::sleep_for(std::chrono::milliseconds(priod));
+    }
+  }
+
+  void start(std::function<void()> func, int period) {
+    auto f = std::bind(periodic_call, func, period);
+    thr = std::thread(f);
+  }
+
+private:
+  std::thread thr;
+  std::function<void()> func_;
+};
 
 void performTask() {
   // Simulate some work
@@ -30,9 +50,20 @@ void callFunctionPeriodically(int interval) {
   }
 }
 
+void func() {
+  int i = 0;
+  while (1) {
+    cout << "call " << i++ << endl;
+    std::this_thread::sleep_for(std::chrono::milliseconds(200));
+  }
+}
+
 int main() {
   int interval = 2000; // Interval in milliseconds
   std::thread periodicCaller(callFunctionPeriodically, interval);
+  Timer timer;
+  timer.start(func, 50);
+
   periodicCaller
       .join(); // In practical use, you might handle threads differently
 
