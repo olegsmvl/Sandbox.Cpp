@@ -7,23 +7,17 @@ using namespace std;
 
 class Timer {
 public:
-  // Timer() { thr = std::thread(func); }
-
-  void periodic_call(std::function<void()> func, int priod) {
-    while (1) {
-      func();
-      std::this_thread::sleep_for(std::chrono::milliseconds(priod));
-    }
-  }
-
   void start(std::function<void()> func, int period) {
-    auto f = std::bind(periodic_call, func, period);
-    thr = std::thread(f);
+    thr = std::thread([func, period]() {
+      while (1) {
+        std::this_thread::sleep_for(std::chrono::milliseconds(period));
+        func();
+      }
+    });
   }
 
 private:
   std::thread thr;
-  std::function<void()> func_;
 };
 
 void performTask() {
@@ -50,19 +44,15 @@ void callFunctionPeriodically(int interval) {
   }
 }
 
-void func() {
-  int i = 0;
-  while (1) {
-    cout << "call " << i++ << endl;
-    std::this_thread::sleep_for(std::chrono::milliseconds(200));
-  }
-}
+int i = 0;
+
+void func() { cout << "call " << i++ << endl; }
 
 int main() {
   int interval = 2000; // Interval in milliseconds
   std::thread periodicCaller(callFunctionPeriodically, interval);
   Timer timer;
-  timer.start(func, 50);
+  timer.start(func, 300);
 
   periodicCaller
       .join(); // In practical use, you might handle threads differently
