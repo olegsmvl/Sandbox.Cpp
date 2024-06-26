@@ -32,7 +32,11 @@ class AStar {
 public:
   AStar(int width, int height);
   std::vector<Node> findPath(int startX, int startY, int endX, int endY);
+  void generate_obstacles();
+
+public: 
   std::vector<std::vector<bool>> grid;
+
 
 private:
   int width, height;

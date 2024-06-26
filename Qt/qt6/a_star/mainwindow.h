@@ -21,6 +21,7 @@ public:
 
 private slots:
     void on_findPathButton_clicked();
+    void on_generateButton_clicked();
 
 private:
     Ui::MainWindow *ui;
