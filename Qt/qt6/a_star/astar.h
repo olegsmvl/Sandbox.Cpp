@@ -32,10 +32,10 @@ class AStar {
 public:
   AStar(int width, int height);
   std::vector<Node> findPath(int startX, int startY, int endX, int endY);
+  std::vector<std::vector<bool>> grid;
 
 private:
   int width, height;
-  std::vector<std::vector<bool>> grid;
   std::vector<Node> getNeighbors(const Node &node);
   float heuristic(const Node &a, const Node &b);
 };

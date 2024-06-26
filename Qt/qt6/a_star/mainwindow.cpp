@@ -24,7 +24,11 @@ MainWindow::~MainWindow()
 void MainWindow::drawGrid() {
     for (int x = 0; x < 20; ++x) {
         for (int y = 0; y < 20; ++y) {
-            scene->addRect(x * 20, y * 20, 20, 20, QPen(Qt::black));
+            if (astar->grid[y][x]) {
+                scene->addRect(x * 20, y * 20, 20, 20, QPen(Qt::black));
+            } else {
+                scene->addRect(x * 20, y * 20, 20, 20, QPen(Qt::black), QBrush(Qt::black));
+            }
         }
     }
 }
@@ -34,6 +38,7 @@ void MainWindow::drawPath(const std::vector<Node>& path) {
         scene->addRect(node.x * 20, node.y * 20, 20, 20, QPen(Qt::green), QBrush(Qt::green));
     }
 }
+
 
 void MainWindow::on_findPathButton_clicked() {
     scene->clear();

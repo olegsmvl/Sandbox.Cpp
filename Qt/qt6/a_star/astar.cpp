@@ -1,9 +1,19 @@
 #include "astar.h"
-#include <algorithm>
-#include <unordered_map>
+#include <algorithm>    // For std::reverse
+#include <unordered_set>
+#include <unordered_map> // For unordered_map
 
 AStar::AStar(int width, int height) : width(width), height(height) {
     grid.resize(height, std::vector<bool>(width, true)); // Initialize grid with no obstacles
+
+    // Add obstacles to the center of the field
+    int centerX = width / 2;
+    int centerY = height / 2;
+    for (int x = centerX - 2; x <= centerX + 2; ++x) {
+        for (int y = centerY - 2; y <= centerY + 2; ++y) {
+            grid[y][x] = false; // Mark these cells as obstacles
+        }
+    }
 }
 
 std::vector<Node> AStar::findPath(int startX, int startY, int endX, int endY) {
@@ -55,7 +65,6 @@ std::vector<Node> AStar::findPath(int startX, int startY, int endX, int endY) {
 
     return std::vector<Node>(); // No path found
 }
-
 
 std::vector<Node> AStar::getNeighbors(const Node& node) {
     std::vector<Node> neighbors;
