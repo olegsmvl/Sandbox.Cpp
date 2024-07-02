@@ -7,7 +7,7 @@
 #include <vector>
 
 struct Node {
-  Node() : x(0), y(0), gCost(0), hCost(0) {}
+  Node() : x(0), y(0), gCost(0), hCost(0), parent(nullptr) {}
   int x, y;
   float gCost, hCost;
   Node *parent;

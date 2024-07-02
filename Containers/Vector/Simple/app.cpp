@@ -8,6 +8,7 @@ using namespace std;
 
 void find_func(vector<int> &vec);
 void remove_last(vector<int> &vec);
+void get_pointer(vector<int> &vec);
 
 int main() {
   vector<int> numbers = {1, 3, 5, 8};
@@ -23,11 +24,20 @@ int main() {
   cout << "-----------------" << endl;
   find_func(numbers);
 
-
-
   remove_last(numbers);
 
+  get_pointer(numbers);
+
   return 0;
+}
+
+void get_pointer(vector<int> &vec) {
+  cout << "---get_pointer-----------------" << endl;
+  cout << "p: " << vec.data() << endl;
+  int* p = vec.data();
+  cout << "p value 1: " << *p << endl;
+  cout << "p value 2: " << *(++p) << endl;
+  cout << "p value 3: " << p[2] << endl;
 }
 
 void remove_last(vector<int> &vec) {
