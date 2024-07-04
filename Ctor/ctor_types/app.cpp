@@ -53,7 +53,7 @@ int main() {
   /* move initialization */
   MyClass cl2 = std::move(cl1);
 
-  /* list initializstion*/
+  /* list initialization*/
   MyStruct st{10, 20, "example"};
   vector<int> vec{1, 2, 3, 4, 5};
 
