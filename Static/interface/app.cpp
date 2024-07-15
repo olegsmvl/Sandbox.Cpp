@@ -17,21 +17,21 @@ public:
 
   void init(IMyClass &cl) { cl_ = &cl; }
 
-  void exec() { cl_->perform(); }
+  void exec() {
+    if (cl_ != nullptr) {
+      cl_->perform();
+    }
+  }
 
   static IMyClass *cl_;
 };
 
-class DummyClass : public IMyClass {
-  void perform() override { cout << "fake!" << endl; }
-};
-
-static DummyClass dummy;
-
-IMyClass *MainClass::cl_ = &dummy;
+IMyClass *MainClass::cl_ = nullptr;
 
 void func() {
+  if (MainClass::cl_ != nullptr) {
     MainClass::cl_->perform();
+  }
 }
 
 int main() {
