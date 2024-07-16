@@ -5,11 +5,14 @@
 
 using ::testing::_;
 using ::testing::AllOf;
+using ::testing::DoAll;
 using ::testing::Eq;
 using ::testing::Field;
+using ::testing::Invoke;
 using ::testing::NiceMock;
 using ::testing::Pointee;
 using ::testing::Return;
+using ::testing::SaveArg;
 
 class LogicMock : public Logic {
 public:
@@ -102,7 +105,22 @@ TEST_F(MyClassTest, DoingFinCheck) {
       .WillOnce(Return(75));
 
   Unit u{7, 47};
-  int result = mc->exec_e(u);
+  int result = mc->exec_f(u);
 
   EXPECT_EQ(result, 75);
+}
+
+TEST_F(MyClassTest, DoingsetValueInFunc) {
+
+  Unit u_set;
+
+  ON_CALL(logic, method_f(_)).WillByDefault(Invoke([](Unit &value) {
+    value.id = 42;
+    value.num = 47;
+    return 76;
+  }));
+
+  int result = mc->update();
+
+  EXPECT_EQ(result, 47);
 }

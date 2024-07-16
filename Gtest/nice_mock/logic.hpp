@@ -46,7 +46,13 @@ public:
   int exec_c(int num) { return logic_.method_c(num); }
   int exec_d(int *num) { return logic_.method_d(num); }
   int exec_e(Unit *unit) { return logic_.method_e(unit); }
-  int exec_e(Unit &unit) { return logic_.method_f(unit); }
+  int exec_f(Unit &unit) { return logic_.method_f(unit); }
+
+  int update() {
+    Unit unit{1,2};
+    logic_.method_f(unit);
+    return unit.num;
+  }
 
 private:
   Logic &logic_;
