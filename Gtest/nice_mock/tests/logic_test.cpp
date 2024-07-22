@@ -21,7 +21,7 @@ public:
     ON_CALL(*this, method_c(_)).WillByDefault(Return(44));
     ON_CALL(*this, method_d(_)).WillByDefault(Return(55));
     ON_CALL(*this, method_e(_)).WillByDefault(Return(57));
-    ON_CALL(*this, method_f(_)).WillByDefault(Return(37));
+    ON_CALL(*this, method_reference(_)).WillByDefault(Return(37));
   }
 
   MOCK_METHOD(void, method_a, (), (final));
@@ -29,7 +29,7 @@ public:
   MOCK_METHOD(int, method_c, (int), (final));
   MOCK_METHOD(int, method_d, (int *), (final));
   MOCK_METHOD(int, method_e, (Unit *), (final));
-  MOCK_METHOD(int, method_f, (Unit &), (final));
+  MOCK_METHOD(int, method_reference, (Unit &), (final));
 };
 
 class MyClassTest : public ::testing::Test {
@@ -100,8 +100,8 @@ TEST_F(MyClassTest, DoingEinCheck) {
 
 TEST_F(MyClassTest, DoingFinCheck) {
 
-  EXPECT_CALL(logic, method_f(AllOf(Field(&Unit::id, Eq(7)),
-                                    Field(&Unit::num, Eq(47)))))
+  EXPECT_CALL(logic, method_reference(AllOf(Field(&Unit::id, Eq(7)),
+                                            Field(&Unit::num, Eq(47)))))
       .WillOnce(Return(75));
 
   Unit u{7, 47};
@@ -114,7 +114,7 @@ TEST_F(MyClassTest, DoingsetValueInFunc) {
 
   Unit u_set;
 
-  ON_CALL(logic, method_f(_)).WillByDefault(Invoke([](Unit &value) {
+  ON_CALL(logic, method_reference(_)).WillByDefault(Invoke([](Unit &value) {
     value.id = 42;
     value.num = 47;
     return 76;
@@ -123,4 +123,34 @@ TEST_F(MyClassTest, DoingsetValueInFunc) {
   int result = mc->update();
 
   EXPECT_EQ(result, 47);
+}
+
+TEST_F(MyClassTest, DoingsetValueInFuncExternal) {
+
+  Unit u_set{42, 47};
+
+  ON_CALL(logic, method_reference(_))
+      .WillByDefault(Invoke([&u_set](Unit &value) {
+        value = u_set;
+        return 76;
+      }));
+
+  int result = mc->update();
+
+  EXPECT_EQ(result, 47);
+}
+
+TEST_F(MyClassTest, GetCallingFuncAtribute) {
+
+  Unit saved_unit;
+
+  ON_CALL(logic, method_reference(_))
+      .WillByDefault(DoAll(SaveArg<0>(&saved_unit), Return(48)));
+
+  int result = mc->update();
+
+  EXPECT_EQ(saved_unit.id, 1);
+  EXPECT_EQ(saved_unit.num, 2);
+
+  EXPECT_EQ(result, 2);
 }

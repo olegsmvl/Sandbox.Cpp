@@ -1,6 +1,5 @@
 
-find_package(GTest)
-find_package(GMock)
+find_package(GTest CONFIG REQUIRED)
 
 # Add test executable
 add_executable(test_main logic_test.cpp)
