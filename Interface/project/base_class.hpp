@@ -1,8 +1,8 @@
 #pragma once
-namespace project{
-class BaseClass{
+namespace project {
+class BaseClass {
 public:
-int a = 5;
-virtual void update() = 0;
+  int a = 5;
+  virtual void update() = 0;
 };
-}
+} // namespace project

@@ -1,0 +1,2 @@
+after build
+run ctest
