@@ -8,10 +8,10 @@ public:
     vector<string> result;
 
     int i = 0;
-    int count = 0;
     int len = nums.size();
 
     while (i < len) {
+      int count = 0;
       int first = nums[i];
       while (i < len - 1 && nums[i] + 1 == nums[i + 1]) {
         i++;
@@ -24,7 +24,6 @@ public:
         result.push_back(to_string(first));
       }
       i++;
-      count = 0;
     }
     return result;
   }
