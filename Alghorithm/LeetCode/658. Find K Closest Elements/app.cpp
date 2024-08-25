@@ -57,8 +57,11 @@ public:
 };
 
 int main() {
-  vector<int> arr = {1, 2, 4, 5, 6};
-  int k = 2, x = 3;
+  // vector<int> arr = {1, 2, 4, 5, 6};
+  // int k = 2, x = 3;
+
+  vector<int> arr = {1,1,1,10,10,10};
+  int k = 1, x = 9;
 
   Solution sol;
   auto result = sol.findClosestElements(arr, k, x);
