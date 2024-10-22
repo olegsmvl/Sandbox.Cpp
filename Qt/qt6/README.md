@@ -9,3 +9,4 @@ other way:
 in main.cpp - QWidget w; w.show()
 
 if add files - it is needed to add to CMakeLists
+example: leetcode/658_find-k-closest-elements
