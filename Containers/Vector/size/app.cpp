@@ -6,6 +6,28 @@ using namespace std;
 int main() {
   vector<int> nums;
 
+  cout << nums.size() << endl;
+  cout << nums.capacity() << endl;
+  cout << "====" << endl;
+
+  nums.push_back(1);
+
+  cout << nums.size() << endl;
+  cout << nums.capacity() << endl;
+  cout << "====" << endl;
+
+  nums.push_back(1);
+  cout << nums.size() << endl;
+  cout << nums.capacity() << endl;
+  cout << "====" << endl;
+
+  nums.push_back(1);
+  cout << nums.size() << endl;
+  cout << nums.capacity() << endl;
+  cout << "====" << endl;
+
+  nums.clear();
+
   for (int i = 0; i < 64; i++) {
     nums.push_back(i);
   }
