@@ -12,8 +12,11 @@ public:
 
   ~MyClass() { cout << "dtor" << endl; }
 
-  MyClass operator=(const MyClass &cl) {
-    num = cl.num;
+  MyClass &operator=(const MyClass &other) {
+    if (&other == this) {
+      return *this;
+    }
+    num = other.num;
     cout << "copy operator" << endl;
     return *this;
   }
@@ -21,7 +24,7 @@ public:
   int num = 0;
 };
 
-void nothing(MyClass cl) { cout << cl.num << endl; }
+void nothing(MyClass &cl) { cout << cl.num << endl; }
 
 int main() {
   MyClass cl1(5);
